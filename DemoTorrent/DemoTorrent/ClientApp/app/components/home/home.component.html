@@ -1,0 +1,46 @@
+<h1>My Personal Torrent Site</h1>
+<main role="main">
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Download YTS YIFY movies at the smallest size</h1>
+        </div>
+    </section>
+    <div class="container">
+        <div class="row">
+            <label>Sort: </label>
+            <div class="btn-group">
+                <button type="button" class=" btn btn-primary" (click)="GetMovieData('sort_by=seeds')">Seeds</button>
+                <button type="button" class=" btn btn-primary" (click)="GetMovieData('sort_by=year')">Year</button>
+                <button type="button" class=" btn btn-primary" (click)="GetMovieData('sort_by=rating')">rating</button>
+            </div>
+            <div class="pull-right">
+                <label>Genre: </label>
+                <div class="btn-group">
+                    <button type="button" class=" btn btn-primary" (click)="GetMovieData('genre=Action')">Action</button>
+                    <button type="button" class=" btn btn-primary" (click)="GetMovieData('genre=Crime')">Crime</button>
+                    <button type="button" class=" btn btn-primary" (click)="GetMovieData('genre=Thriller')">Thriller</button>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3" *ngFor="let movie of movielist">
+                <div class="card mb-3 box-shadow">
+                    <img class="card-img-top" alt="Thumbnail [100%x225]" style="height: 315px; width: 210px; display: block;" [src]="movie.medium_cover_image" data-holder-rendered="true">
+                    <div class="card-body" style="height: 150px; width: 210px; display: block;">
+                        <p class="card-text">{{movie.title.length > 30 ? (movie.title.substr(0,27) + '...' ) : movie.title}}</p>
+                        <p class="card-text">Year: {{movie.year}} &nbsp;&nbsp;Runtime: {{movie.runtime}} min</p>
+                        <p class="card-text">Genres: <a *ngFor="let genre of movie.genres">{{genre + ', '}}</a></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-primary" *ngFor="let torrent of movie.torrents" [attr.href]="torrent.url">{{torrent.quality}}</a>
+                            </div>
+                            <small class="text-muted">{{movie.rating}}/10 *</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
